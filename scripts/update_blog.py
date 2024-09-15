@@ -9,14 +9,16 @@ rss_url = 'https://api.velog.io/rss/@ssion'
 # 깃허브 레포지토리 경로
 repo_path = '.'
 
+
+    
+# 'velog-posts' 폴더 경로
+posts_dir = os.path.join(repo_path, 'velog-posts')
+print(f"Current working directory: {os.getcwd()}, {posts_dir}")
+
 # 'velog-posts' 폴더가 없다면 생성
 if not os.path.exists(posts_dir):
     os.makedirs(posts_dir)
     print(f"Created directory: {posts_dir}")
-    
-# 'velog-posts' 폴더 경로
-posts_dir = os.path.join(repo_path, 'velog-posts')
-print(f"Current working directory: {os.getcwd()}")
 
 
 # 레포지토리 로드
