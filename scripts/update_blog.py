@@ -16,6 +16,7 @@ print(f"Current working directory: {os.getcwd()}")
 # 'velog-posts' 폴더가 없다면 생성
 if not os.path.exists(posts_dir):
     os.makedirs(posts_dir)
+    print(f"Created directory: {posts_dir}")
 
 # 레포지토리 로드
 repo = git.Repo(repo_path)
@@ -37,10 +38,11 @@ for entry in feed.entries:
     if not os.path.exists(file_path):
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(entry.description)  # 글 내용을 파일에 작성
-
+        print(f"Created file: {file_path}")
         # 깃허브 커밋
         repo.git.add(file_path)
         repo.git.commit('-m', f'Add post: {entry.title}')
+        
 
 # 변경 사항을 깃허브에 푸시
 repo.git.push()
