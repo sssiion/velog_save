@@ -11,6 +11,7 @@ repo_path = '.'
 
 # 'velog-posts' 폴더 경로
 posts_dir = os.path.join(repo_path, 'velog-posts')
+print(f"Current working directory: {os.getcwd()}")
 
 # 'velog-posts' 폴더가 없다면 생성
 if not os.path.exists(posts_dir):
