@@ -26,6 +26,7 @@ repo = git.Repo(repo_path)
 
 # RSS 피드 파싱
 feed = feedparser.parse(rss_url)
+print(f"Number of entries in RSS feed: {len(feed.entries)}")
 
 # 각 글을 파일로 저장하고 커밋
 for entry in feed.entries:
