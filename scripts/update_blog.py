@@ -37,6 +37,7 @@ for entry in feed.entries:
     # 필요에 따라 추가 문자 대체
     file_name += '.md'
     file_path = os.path.join(posts_dir, file_name)
+    print(f"File path: {file_path}")
 
     # 파일이 이미 존재하지 않으면 생성
     if not os.path.exists(file_path):
@@ -44,9 +45,17 @@ for entry in feed.entries:
             file.write(entry.description)  # 글 내용을 파일에 작성
         print(f"Created file: {file_path}")
         # 깃허브 커밋
-        repo.git.add(file_path)
-        repo.git.commit('-m', f'Add post: {entry.title}')
+        try:
+            repo.git.add(file_path)
+            repo.git.commit('-m', f'Add post: {entry.title}')
+            print(f"Committed file: {file_path}")
+        except git.exc.GitCommandError as e:
+            print(f"Git error: {e}")
         
 
 # 변경 사항을 깃허브에 푸시
-repo.git.push()
+try:
+    repo.git.push()
+    print("Changes pushed to remote repository.")
+except Exception as e:
+    print(f"Error pushing changes: {e}")
