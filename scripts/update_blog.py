@@ -13,7 +13,11 @@ repo_path = '.'
     
 # 'velog-posts' 폴더 경로
 posts_dir = os.path.join(repo_path, 'velog-posts')
-print(f"Current working directory: {os.getcwd()}, {posts_dir}")
+print(f"Feed title: {feed.feed.title}")
+print(f"Feed description: {feed.feed.get('description', 'No description')}")
+print(f"Feed link: {feed.feed.link}")
+print(f"Number of entries in RSS feed: {len(feed.entries)}")
+print(f"Entries: {feed.entries}")
 
 # 'velog-posts' 폴더가 없다면 생성
 if not os.path.exists(posts_dir):
