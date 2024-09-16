@@ -28,10 +28,7 @@ repo = git.Repo(repo_path)
 # RSS 피드 파싱
 feed = feedparser.parse(rss_url)
 print(f"Feed title: {feed.feed.title}")
-print(f"Feed description: {feed.feed.get('description', 'No description')}")
-print(f"Feed link: {feed.feed.link}")
-print(f"Number of entries in RSS feed: {len(feed.entries)}")
-print(f"Entries: {feed.entries}")
+
 
 # 각 글을 파일로 저장하고 커밋
 for entry in feed.entries:
@@ -44,11 +41,20 @@ for entry in feed.entries:
     file_path = os.path.join(posts_dir, file_name)
     print(f"File path: {file_path}")
 
-    # 파일이 이미 존재하지 않으면 생성
-    if not os.path.exists(file_path):
-        with open(file_path, 'w', encoding='utf-8') as file:
-            file.write(entry.description)  # 글 내용을 파일에 작성
-        print(f"Created file: {file_path}")
+    # 파일이 이미 존재하지 않으면 생성/ 내용이 다르면 업데이트
+    if os.path.exists(file_path):
+        # 파일 내용 읽기
+        with open(file_path, 'r', encoding='utf-8') as file:
+            existing_content = file.read()
+        
+        # 새 내용
+        new_content = entry.description
+        
+        # 내용이 다르면 파일 업데이트
+        if existing_content != new_content:
+            with open(file_path, 'w', encoding='utf-8') as file:
+                file.write(new_content)
+            print(f"Updated file: {file_path}")
         # 깃허브 커밋
         try:
             repo.git.add(file_path)
