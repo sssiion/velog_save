@@ -13,11 +13,8 @@ repo_path = '.'
     
 # 'velog-posts' 폴더 경로
 posts_dir = os.path.join(repo_path, 'velog-posts')
-print(f"Feed title: {feed.feed.title}")
-print(f"Feed description: {feed.feed.get('description', 'No description')}")
-print(f"Feed link: {feed.feed.link}")
-print(f"Number of entries in RSS feed: {len(feed.entries)}")
-print(f"Entries: {feed.entries}")
+print(f"Current working directory: {os.getcwd()}")
+print(f"Target posts directory: {posts_dir}")
 
 # 'velog-posts' 폴더가 없다면 생성
 if not os.path.exists(posts_dir):
@@ -54,7 +51,7 @@ for entry in feed.entries:
             repo.git.commit('-m', f'Add post: {entry.title}')
             print(f"Committed file: {file_path}")
         except git.exc.GitCommandError as e:
-            print(f"Git error: {e}")
+            print(f"Git error: {e}")            
         
 
 # 변경 사항을 깃허브에 푸시
