@@ -55,13 +55,17 @@ for entry in feed.entries:
             with open(file_path, 'w', encoding='utf-8') as file:
                 file.write(new_content)
             print(f"Updated file: {file_path}")
+    else:
+        with open(file_path, 'w', encoding="utf-8") as file:
+            file.write(entry.description)
+        print(f"Created new file: {file_path}")
         # 깃허브 커밋
-        try:
-            repo.git.add(file_path)
-            repo.git.commit('-m', f'Add post: {entry.title}')
-            print(f"Committed file: {file_path}")
-        except git.exc.GitCommandError as e:
-            print(f"Git error: {e}")            
+    try:
+        repo.git.add(file_path)
+        repo.git.commit('-m', f'Add post: {entry.title}')
+        print(f"Committed file: {file_path}")
+    except git.exc.GitCommandError as e:
+        print(f"Git error: {e}")            
         
 
 # 변경 사항을 깃허브에 푸시
